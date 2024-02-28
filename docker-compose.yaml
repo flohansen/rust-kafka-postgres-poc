@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  import:
+    deploy:
+      mode: replicated
+      replicas: 5
+    build:
+      context: .
+      dockerfile: ./build/product-import-kafka.dockerfile
+    environment:
+      KAFKA_BROKERS:
+      KAFKA_TOPIC:
+      KAFKA_GROUP_ID:
+      KAFKA_USERNAME:
+      KAFKA_PASSWORD:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USERNAME: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DATABASE: test
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+    - postgres
