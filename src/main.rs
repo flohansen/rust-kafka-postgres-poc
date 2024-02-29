@@ -53,14 +53,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let consumer: StreamConsumer = ClientConfig::new()
         .set("bootstrap.servers", kafka_brokers)
-		.set("group.id", kafka_group_id)
-		.set("sasl.username", kafka_username)
-		.set("sasl.password", kafka_password)
-		.set("security.protocol", "sasl_ssl")
-		.set("sasl.mechanisms", "PLAIN")
-		.set("auto.offset.reset", "earliest")
-		.set("statistics.interval.ms", "10000")
-		.set("enable.auto.commit", "false")
+        .set("group.id", kafka_group_id)
+        .set("sasl.username", kafka_username)
+        .set("sasl.password", kafka_password)
+        .set("security.protocol", "sasl_ssl")
+        .set("sasl.mechanisms", "PLAIN")
+        .set("auto.offset.reset", "earliest")
+        .set("statistics.interval.ms", "10000")
+        .set("enable.auto.commit", "false")
         .create()
         .expect("kafka create error");
 
