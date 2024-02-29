@@ -2,7 +2,7 @@ FROM rust:1.73 as builder
 RUN apt update && apt install -y cmake libsasl2-dev
 
 WORKDIR /usr/src/app
-COPY ./product-import-kafka .
+COPY . .
 RUN cargo build --release
 
 FROM debian:bookworm-slim
